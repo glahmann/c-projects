@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "rational.h"
+
+struct rational {
+  int numer;
+  int denom;
+};
+
+Rational create(int n, int d) {
+  Rational r = (Rational) malloc(sizeof(Rational));
+  r->numer = n;
+  r->denom = d;
+  
+  return r;
+}
+
+void destroy(Rational a) {
+  free(a);
+}
+
+Rational multiply(Rational a, Rational b) {
+  Rational r = (Rational) malloc(sizeof(Rational));
+  r->numer = a->numer * b->numer;
+  r->denom = a->denom * b->denom;
+  return r;
+}
+
+void print(Rational rat) {
+  printf("%d/%d\n", rat->numer, rat->denom);
+}
