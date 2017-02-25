@@ -75,14 +75,23 @@ void delete(ListType listptr, ItemType item) {
   int i, flag = 0;
   
   for(i = 0; i < listptr->size; i++) {
-    if(flag == 0 && listptr[i]->data == item) {
-      listptr[i]->data = item;
+    if(flag == 0 && listptr->data[i] == item) {
+      listptr->data[i] = item;
       listptr->size--;
       flag = 1;
     }
   }
-   
+}
 
+int is_full(ListType listptr) {
+  int is_full = 0;
+  if(listptr->size >= listptr->capacity) {
+    ItemType* newItem = (ItemType*) malloc(sizeof(ItemType));
+    if(newItem == null)
+      is_full = 1;
+    free(newItem)
+  }
+  return is_full;
 }
 
 
