@@ -12,3 +12,6 @@ stockADT.o: stockADT.c stockADT.h
 
 listADTgen.o: listADTgen.c listADTgen.h
 	gcc -g -std=gnu90 -c listADTgen.c
+
+clean:
+	rm -f pr4.out stockDriver.o clientADT.o stockADT.o listADTgen.o

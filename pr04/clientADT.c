@@ -7,14 +7,14 @@
 #include "clientADT.h"
 
 struct client {
-  unsigned int idNum; // TODO control num of bytes
+  int idNum; // TODO control num of bytes
   char *name;
   char *email;
   char phone[13]; // 12 digits + \0
   int size;
 };
 
-Client createClient(unsigned int idNum, char *name, char *email, char *phone) {
+Client createClient(int idNum, char *name, char *email, char *phone) {
   Client clientptr = malloc(sizeof(struct client));
 
   // Populate struct fields

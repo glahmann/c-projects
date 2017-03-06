@@ -6,7 +6,7 @@ typedef struct client *Client;
 //
 // pre:
 // post:
-Client createClient(unsigned int idNum, char *name, char *email, char *phone);
+Client createClient(int idNum, char *name, char *email, char *phone);
 
 //
 // pre:

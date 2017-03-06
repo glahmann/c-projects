@@ -14,7 +14,7 @@ int compare(int*, int*);
 //
 // pre:
 // post:
-ListType readClients(FILE *fptr);
+void readClients(FILE *fptr, ListType clientList);
 //
 // pre:
 // post:
@@ -26,30 +26,43 @@ int main(void) {
   FILE *fptrStocks;
   FILE *fptrStCl;
   FILE *fptrSummary; // TODO chan
+  ListType clientList;
 
   fptrClients = fopen("clients.txt", "r");
   fptrStocks = fopen("stocks.csv", "r");
   fptrStCl = fopen("stock_client.txt", "r");
   fptrSummary = fopen("summary.csv", "w");
 
-  readClients(fptrClients);
+  // sizeof(int) == sizeof(pointer) == 4 bytes
+  clientList = createList(sizeof(int), compare);
+  readClients(fptrClients, clientList);
 
   fclose(fptrClients);
   fclose(fptrStocks);
   fclose(fptrStCl);
   fclose(fptrSummary);
+  destroyList(clientList);
 }
 
-ListType readClients(FILE *fptr) {
-  ListType clientList;
-  Client aClient;
+void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
+  int i = 0, idNum;
+  char name[95], email[95], phone[95], line[95];
   if (fptr == NULL) {
     fputs("Client file not found!", stderr);
     exit(-1);
   } else {
-    clientList = createList(61, compare);
+    while (fgets(line, 95, fptr) != NULL) { // TODO use alternative to 95
+      sscanf(line, "%d", &idNum);
+      fgets(name, 95, fptr);
+      fgets(email, 95, fptr);
+      fgets(phone, 95, fptr);
+      // create a client object
+      Client curr = createClient(idNum, name, email, phone);
+      // add client object pointer to list
+      push(clientList, curr);
+    }
+    printf("%d\n", size_is(clientList));
   }
-  return clientList;
 }
 
 void readTXT() {
