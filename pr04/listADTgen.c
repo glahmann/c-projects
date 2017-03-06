@@ -13,7 +13,7 @@ struct list_type {
 
 
 // returns the pointer to the list; NULL if list not created
-ListType createList(int elSize, int (*comp) (void *item1, void * item2)) {
+ListType create_list(int elSize, int (*comp) (void *item1, void * item2)) {
   // allocate memory for a structure variable containing all
   // list components
   ListType listptr = malloc(sizeof(struct list_type));
@@ -35,7 +35,7 @@ ListType createList(int elSize, int (*comp) (void *item1, void * item2)) {
   return listptr;
 }
 
-void destroyList(ListType listptr) {
+void destroy_list(ListType listptr) {
   free(listptr->data);
   free(listptr);
   listptr = NULL;
@@ -96,8 +96,12 @@ int is_full(ListType listptr) {
    return 0;
 }
 
-void * get_element(ListType listptr, int index) {
-    return listptr->data[index];
+// void clear_list(ListType listptr) {
+//   for
+// }
+
+void *get_element(ListType listptr, int index) {
+  return listptr->data + listptr->elementSize * index;
 }
 
 void delete(ListType listptr, void *item) {

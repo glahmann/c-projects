@@ -14,6 +14,10 @@ void push(ListType listP, void *item);
 //
 // pre:
 // post:
+//void clear_list(ListType listptr);
+//
+// pre:
+// post:
 void delete(ListType listP, void* item);
 //
 // pre:

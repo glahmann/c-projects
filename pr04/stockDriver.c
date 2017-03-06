@@ -35,7 +35,7 @@ int main(void) {
   fptrSummary = fopen("summary.csv", "w");
 
   // sizeof(int) == sizeof(pointer) == 4 bytes
-  clientList = createList(sizeof(int), compare);
+  clientList = create_list(sizeof(int), compare);
   readClients(fptrClients, clientList);
 
   fclose(fptrClients);
@@ -47,7 +47,7 @@ int main(void) {
   for (i = 0; i < size_is(clientList); i++) {
     destroyClient((Client) get_element(clientList, i));
   }
-  destroyList(clientList);
+  destroy_list(clientList);
 }
 
 void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
