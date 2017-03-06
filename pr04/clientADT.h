@@ -1,22 +1,29 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-typedef struct client *Client;
+struct client {
+  int idNum;
+  char name[40];
+  char email[40];
+  char phone[15]; // 12 digits + \0
+};
+
+typedef struct client Client;
 
 //
 // pre:
 // post:
 Client createClient(int idNum, char *name, char *email, char *phone);
 
+// //
+// // pre:
+// // post:
+// void destroyClient(Client clientptr);
 //
-// pre:
-// post:
-void destroyClient(Client clientptr);
-
-//
-// pre:
-// post:
-int getSizeClient(Client clientptr);
+// //
+// // pre:
+// // post:
+// int getSizeClient(Client clientptr);
 
 
 #endif

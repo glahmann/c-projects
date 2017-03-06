@@ -101,7 +101,7 @@ int is_full(ListType listptr) {
 // }
 
 void *get_element(ListType listptr, int index) {
-  return listptr->data + listptr->elementSize * index;
+  return listptr->data + (listptr->elementSize) * index;
 }
 
 void delete(ListType listptr, void *item) {

@@ -35,7 +35,7 @@ int main(void) {
   fptrSummary = fopen("summary.csv", "w");
 
   // sizeof(int) == sizeof(pointer) == 4 bytes
-  clientList = create_list(sizeof(int), compare);
+  clientList = create_list(sizeof(struct client), compare);
   readClients(fptrClients, clientList);
 
   fclose(fptrClients);
@@ -44,28 +44,31 @@ int main(void) {
   fclose(fptrSummary);
 
   // Destroy elements of list
-  for (i = 0; i < size_is(clientList); i++) {
-    destroyClient((Client) get_element(clientList, i));
-  }
+  // for (i = 0; i < size_is(clientList); i++) {
+  //   destroyClient((Client) get_element(clientList, i));
+  // }
   destroy_list(clientList);
 }
 
 void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
   int i = 0, idNum;
-  char name[95], email[95], phone[95], line[95];
+  char name[40], email[40], phone[15], line[95];
   if (fptr == NULL) {
     fputs("Client file not found!", stderr);
     exit(-1);
   } else {
     while (fgets(line, 95, fptr) != NULL) { // TODO use alternative to 95
       sscanf(line, "%d", &idNum);
-      fgets(name, 95, fptr);
-      fgets(email, 95, fptr);
-      fgets(phone, 95, fptr);
+      fgets(name, 40, fptr);
+      fgets(email, 40, fptr);
+      fgets(phone, 15, fptr);
       // create a client object
       Client curr = createClient(idNum, name, email, phone);
       // add client object pointer to list
-      push(clientList, curr);
+      push(clientList, &curr);
+      Client *cli = (Client *) get_element(clientList, i);
+      printf("%d", cli->idNum);
+      i++;
     }
     printf("%d\n", size_is(clientList));
   }
