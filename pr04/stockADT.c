@@ -6,38 +6,35 @@
 #include <string.h>
 #include "stockADT.h"
 
-struct stock {
-  char *symbol;
-  double price;
-};
-
 Stock createStock(char *symbol, /*by value*/ double price) {
 
-  Stock stockptr = malloc(sizeof(struct stock));
-  if (stockptr != NULL) {                           // TODO Do I need this?
-    stockptr->symbol = malloc(strlen(symbol) + 1); // Should malloc for max length?
-    strcpy(stockptr->symbol, symbol);
-    stockptr->price = price;
-  }
+  Stock stockptr;
+  strcpy(stockptr.symbol, symbol);
+  stockptr.price = price;
+
   return stockptr;
 }
 
 void destroyStock(Stock stockptr) {
-  //TODO deallocate memory
+  //TODO deallocate memory (if symbol is dynamically allocated)
+  free(&stockptr);
+  //stockptr = NULL;
 }
 
 char* getSymbol(Stock stockptr) {
-  return stockptr->symbol;
+  char *output = malloc(sizeof(stockptr.symbol) + 1); // TODO free from call location
+  strcpy(output, stockptr.symbol);
+  return output;
 }
 
 double getPrice(Stock stockptr) {
-  return stockptr->price;
+  return stockptr.price;
 }
 
-void setSymbol(char symbolptr) {
-
+void setSymbol(Stock stockptr, char *symbolptr) {
+  strcpy(stockptr.symbol, symbolptr);
 }
 
-void setPrice(double thePrice) {
-
+void setPrice(Stock stockptr, double thePrice) {
+  stockptr.price = thePrice;
 }

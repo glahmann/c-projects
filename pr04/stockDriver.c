@@ -18,6 +18,10 @@ void readClients(FILE *fptr, ListType clientList);
 //
 // pre:
 // post:
+void readStocks(FILE *fptr, ListType stockList);
+//
+// pre:
+// post:
 void readTXT();
 
 
@@ -28,37 +32,37 @@ int main(void) {
   FILE *fptrSummary; // TODO chan
   int i;
   ListType clientList;
+  ListType stockList;
 
   fptrClients = fopen("clients.txt", "r");
   fptrStocks = fopen("stocks.csv", "r");
   fptrStCl = fopen("stock_client.txt", "r");
   fptrSummary = fopen("summary.csv", "w");
 
-  // sizeof(int) == sizeof(pointer) == 4 bytes
   clientList = create_list(sizeof(struct client), compare);
+  stockList = create_list(sizeof(struct stock), compare);
+
   readClients(fptrClients, clientList);
+  readStocks(fptrStocks, stockList);
 
   fclose(fptrClients);
   fclose(fptrStocks);
   fclose(fptrStCl);
   fclose(fptrSummary);
 
-  // Destroy elements of list
-  // for (i = 0; i < size_is(clientList); i++) {
-  //   destroyClient((Client) get_element(clientList, i));
-  // }
   destroy_list(clientList);
+  destroy_list(stockList);
 }
 
 void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
   int i = 0, idNum;
-  char name[40], email[40], phone[15], line[95];
+  char name[40], email[40], phone[15], line[95]; // TODO should be dynamic
   if (fptr == NULL) {
     fputs("Client file not found!", stderr);
     exit(-1);
   } else {
     while (fgets(line, 95, fptr) != NULL) { // TODO use alternative to 95
-      sscanf(line, "%d", &idNum);
+      sscanf(line, "%d ", &idNum);
       fgets(name, 40, fptr);
       fgets(email, 40, fptr);
       fgets(phone, 15, fptr);
@@ -74,8 +78,27 @@ void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
   }
 }
 
-void readTXT() {
+void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
+  char symbol[6], line[95];   // TODO should be dynamic
+  int i = 0;
+  double price;
+  if (fptr == NULL) {
+    fputs("Stock file not found!", stderr);
+    exit(-1);
+  } else {
+    while (fgets(line, 95, fptr) != NULL) { // TODO use alternative to 95
+      sscanf(line, "%[^,]s%lf", symbol, &price);
 
+      // create a stock object
+      Stock curr = createStock(symbol, price);
+      // add stock object pointer to list
+      push(stockList, &curr);
+      Stock *stk = (Stock *) get_element(stockList, i);
+      printf("%lf\n", stk->price);
+      i++;
+    }
+    printf("%d\n", size_is(stockList));
+  }
 }
 
 int compare(int *a, int *b) {

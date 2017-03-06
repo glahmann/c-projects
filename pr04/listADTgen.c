@@ -96,12 +96,13 @@ int is_full(ListType listptr) {
    return 0;
 }
 
-// void clear_list(ListType listptr) {
-//   for
-// }
-
 void *get_element(ListType listptr, int index) {
   return listptr->data + (listptr->elementSize) * index;
+}
+
+
+int get_index(ListType listP, void *el) {
+  return 1; // TODO implement
 }
 
 void delete(ListType listptr, void *item) {

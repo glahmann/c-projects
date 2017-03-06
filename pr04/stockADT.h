@@ -1,7 +1,12 @@
 #ifndef STOCK_H
 #define STOCK_H
 
-typedef struct stock *Stock;
+struct stock {
+  char symbol[6];
+  double price;
+};
+
+typedef struct stock Stock;
 
 //
 // Pre:
@@ -26,11 +31,11 @@ double getPrice();
 //
 // Pre:
 // Post:
-void setSymbol(char theSymbol);
+void setSymbol(Stock stockptr, char *theSymbol);
 
 //
 // Pre:
 // Post:
-void setPrice(double thePrice);
+void setPrice(Stock stockptr, double thePrice);
 
 #endif

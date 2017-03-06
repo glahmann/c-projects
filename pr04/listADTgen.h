@@ -23,6 +23,13 @@ void delete(ListType listP, void* item);
 // pre:
 // post:
 void * get_element(ListType listP, int index);
+//
+// pre:
+// post:
+int get_index(ListType listP, void *el);
+//
+// pre:
+// post:
 void printl(ListType listP, void (*printItem) (void *item));
 
 #endif
