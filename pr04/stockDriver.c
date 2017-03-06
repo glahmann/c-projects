@@ -47,7 +47,7 @@ ListType readClients(FILE *fptr) {
     fputs("Client file not found!", stderr);
     exit(-1);
   } else {
-    clientList = createList(getSizeClient(aClient), compare);
+    clientList = createList(61, compare);
   }
   return clientList;
 }
