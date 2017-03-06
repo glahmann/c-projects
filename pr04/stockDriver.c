@@ -67,7 +67,7 @@ void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
       // add client object pointer to list
       push(clientList, &curr);
       Client *cli = (Client *) get_element(clientList, i);
-      printf("%d", cli->idNum);
+      printf("%d\n", cli->idNum);
       i++;
     }
     printf("%d\n", size_is(clientList));
