@@ -26,6 +26,7 @@ int main(void) {
   FILE *fptrStocks;
   FILE *fptrStCl;
   FILE *fptrSummary; // TODO chan
+  int i;
   ListType clientList;
 
   fptrClients = fopen("clients.txt", "r");
@@ -41,6 +42,11 @@ int main(void) {
   fclose(fptrStocks);
   fclose(fptrStCl);
   fclose(fptrSummary);
+
+  // Destroy elements of list
+  for (i = 0; i < clientList->size; i++) {
+    destroyClient(clientList[i]);
+  }
   destroyList(clientList);
 }
 

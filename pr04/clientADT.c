@@ -30,6 +30,11 @@ Client createClient(int idNum, char *name, char *email, char *phone) {
   return clientptr;
 }
 
+void destroyClient(Client clientptr) {
+  free(clientptr->name);
+  free(clientptr->email);
+}
+
 int getSizeClient(Client clientptr) {
    return clientptr->size;
 }
