@@ -96,6 +96,10 @@ int is_full(ListType listptr) {
    return 0;
 }
 
+void * get_element(ListType listptr, int index) {
+    return listptr->data[index];
+}
+
 void delete(ListType listptr, void *item) {
 
 }

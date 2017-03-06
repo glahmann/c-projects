@@ -44,8 +44,8 @@ int main(void) {
   fclose(fptrSummary);
 
   // Destroy elements of list
-  for (i = 0; i < clientList->size; i++) {
-    destroyClient(clientList[i]);
+  for (i = 0; i < size_is(clientList); i++) {
+    destroyClient((Client) get_element(clientList, i));
   }
   destroyList(clientList);
 }
