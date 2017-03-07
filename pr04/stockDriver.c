@@ -86,15 +86,18 @@ void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
     fputs("Stock file not found!", stderr);
     exit(-1);
   } else {
+    fgets(line, 95, fptr);
     while (fgets(line, 95, fptr) != NULL) { // TODO use alternative to 95
-      sscanf(line, "%[^,]s%lf", symbol, &price);
+      sscanf(line, "%[^,],%lf", symbol, &price);
 
       // create a stock object
       Stock curr = createStock(symbol, price);
       // add stock object pointer to list
       push(stockList, &curr);
-      Stock *stk = (Stock *) get_element(stockList, i);
-      printf("%lf\n", stk->price);
+      if(i%20 == 0) { // TODO remove
+	Stock *stk = (Stock *) get_element(stockList, i);
+	printf("%lf\n", stk->price);
+      }
       i++;
     }
     printf("%d\n", size_is(stockList));

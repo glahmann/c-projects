@@ -16,7 +16,7 @@ Stock createStock(char *symbol, double price);
 //
 // Pre:
 // Post:
-void destroyStock(Stock stockptr);
+//void destroyStock(Stock stockptr);
 
 //
 // Pre:

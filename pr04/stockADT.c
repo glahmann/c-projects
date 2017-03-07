@@ -15,11 +15,11 @@ Stock createStock(char *symbol, /*by value*/ double price) {
   return stockptr;
 }
 
-void destroyStock(Stock stockptr) {
+//void destroyStock(Stock stockptr) {
   //TODO deallocate memory (if symbol is dynamically allocated)
-  free(&stockptr);
+  //free(&stockptr);
   //stockptr = NULL;
-}
+//}
 
 char* getSymbol(Stock stockptr) {
   char *output = malloc(sizeof(stockptr.symbol) + 1); // TODO free from call location
