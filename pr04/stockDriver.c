@@ -144,7 +144,7 @@ void printItem(void *d, void *e) {
   if (id == match) {
     for (i = 0; i < reps; i++) {
       sscanf(line, "%s %d", symbol, &count);
-      printf(",%s,%d", symbol, count);
+      fprintf(fptr, ",%s,%d\n", symbol, count);
       // for(j = 0; j < ((ListType) e)->size; j++) {
       //   if(strcmp(symbol, ((Stock *)(((ListType) e)->data + j * (((ListType) e)->elementSize)))->symbol) == 0) {
       //     cost = ((Stock *)(((ListType) e)->data + j * (((ListType) e)->elementSize)))->price;
