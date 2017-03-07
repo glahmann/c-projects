@@ -97,5 +97,6 @@ int get_index(ListType listptr, void *el) {
 }
 
 void sort_list(ListType listptr) {
+  printf("Okay before qsort");
   qsort(listptr, listptr->size, listptr->elementSize, listptr->comparePtr);
 }
