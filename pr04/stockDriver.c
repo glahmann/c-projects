@@ -56,7 +56,7 @@ int main(void) {
   stockList = create_list(sizeof(struct stock), compare);
   readClients(fptrClients, clientList);
   readStocks(fptrStocks, stockList);
- 
+
   //sort_list(clientList);
   print_list(clientList, printItem);
 
@@ -82,9 +82,13 @@ void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
   } else {
     while (fgets(line, 95, fptr) != NULL) { // TODO use alternative to 95
       sscanf(line, "%d ", &idNum);
-      fgets(name, 40, fptr);
-      fgets(email, 40, fptr);
-      fgets(phone, 15, fptr);
+      fgets(line, 40, fptr);
+      sscanf(line, "%s", name);
+      fgets(line, 40, fptr);
+      sscanf(line, "%s", email);
+      fgets(line, 15, fptr);
+      sscanf(line, "%s", phone);
+
       // create a client object
       Client curr = createClient(idNum, name, email, phone);
       // add client object pointer to list
