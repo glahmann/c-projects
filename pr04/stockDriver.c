@@ -60,7 +60,7 @@ int main(void) {
   fclose(fptrClients);
   fclose(fptrStocks);
   // fclose(fptrStCl);
-  fclose(fptrSummary);
+  // fclose(fptrSummary);
 
   // Free lists
   //clear_list(clientList, destroyItem); // TODO free memory from clients
