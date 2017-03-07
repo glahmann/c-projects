@@ -151,10 +151,10 @@ void printItem(void *d, void *e) {
       //   }
       // }
       // total += cost*count;
-      printf(",%.4lf\n", cost);
-      fgets(line, 80, fptr);
+      // printf(",%.4lf\n", cost);
+      // fgets(line, 80, fptr);
     }
-    printf("%.4lf\n", total);
+    // printf("%.4lf\n", total);
   }
 
   fclose(fptrSummary);
