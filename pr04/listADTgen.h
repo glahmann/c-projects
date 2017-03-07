@@ -19,22 +19,26 @@ int is_full(ListType listP);
 int size_is(ListType listP);
 void push(ListType listP, void *item);
 
-//
+// Frees the allocated memory for each item in the list.
 //pre:
-//post:
+//post: none
 void clear_list(ListType listptr, void (*destroyItem) (void *d));
-//
+
+// Sorts the list in ascending order based on the given comparator.
 // pre:
-// post:
+// post: none
 void sort_list(ListType listP);
-//
+
+// Returns a pointer to the element at a given index.
 // pre:
 // post:
 void * get_element(ListType listP, int index);
+
 //
 // pre:
 // post:
 int get_index(ListType listP, void *el);
+
 //
 // pre:
 // post:

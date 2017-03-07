@@ -7,7 +7,7 @@
 ListType create_list(int elSize, int (*comp) (const void *item1, const void *item2)) {
   // allocate memory for a structure variable containing all
   // list components
-  ListType listptr = calloc(sizeof(struct list_type), 1);
+  ListType listptr = malloc(sizeof(struct list_type));
   // if allocation was succesfull
   if (listptr != NULL) {
      listptr->size = 0;

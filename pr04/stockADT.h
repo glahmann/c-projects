@@ -8,34 +8,29 @@ struct stock {
 
 typedef struct stock Stock;
 
-//
+// Creates a stock struct.
 // Pre:
 // Post:
 Stock createStock(char *symbol, double price);
 
-//
+// Returns the stock symbol of the given stock struct.
 // Pre:
-// Post:
-//void destroyStock(Stock stockptr);
+// Post: A pointer to a char array containing the stock symbol
+char* getSymbol(Stock stockptr);
 
-//
+// Returns the price of the given stock struct.
 // Pre:
-// Post:
-char* getSymbol();
+// Post: A double representing the stock price
+double getPrice(Stock stockptr);
 
-//
+// Sets the symbol for the given stock.
 // Pre:
-// Post:
-double getPrice();
-
-//
-// Pre:
-// Post:
+// Post: none
 void setSymbol(Stock stockptr, char *theSymbol);
 
-//
+// Sets the price for the given stock.
 // Pre:
-// Post:
+// Post: none
 void setPrice(Stock stockptr, double thePrice);
 
 #endif

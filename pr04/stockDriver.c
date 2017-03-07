@@ -7,28 +7,30 @@
 #include "listADTgen.h"
 #include "stockADT.h"
 
-//
+// Compares the equality relationship between a and b.
 // pre:
-// post:
+// post: an integer representing the equality relation between a and b
 int compare(const void *a, const void *b);
-//
-// pre:
-// post:
+
+// Frees the memory allocation for client structs.
+// pre: *d points to a valid memory location for a client object
+// post: none
 void destroyItem(void *d);
+
 //
-// pre:
-// post:
+// pre: *d points to a valid memory location for a client object
+// post: none
 void printItem(void *d);
-//
+
+// Reads info from client file and builds a list of client objects.
 // pre:
-// post:
+// post: none
 void readClients(FILE *fptr, ListType clientList);
-//
+
+// Reads info from stock file and builds a list of stock objects.
 // pre:
-// post:
+// post: none
 void readStocks(FILE *fptr, ListType stockList);
-
-
 
 //
 // pre:
@@ -40,10 +42,8 @@ int main(void) {
   FILE *fptrClients;
   FILE *fptrStocks;
   FILE *fptrStCl;
-  FILE *fptrSummary; // TODO chan
-  int i;
-  ListType clientList;
-  ListType stockList;
+  FILE *fptrSummary;
+  ListType clientList, stockList;
 
   // Open relevant files for reading and writing
   fptrClients = fopen("clients.txt", "r");
@@ -129,11 +129,11 @@ int compare(const void *a, const void *b) {
 }
 
 void printItem(void *d) {
-  Client *cli = d;
-  print_client(*cli);
+  //Client *cli = d;
+  print_client(((Client) d));
 }
 
 void destroyItem(void *d) {
   Client *cli = d;
-  destroy_client(*cli);
+  destroy_client(((Client) d));
 }

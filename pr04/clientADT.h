@@ -10,18 +10,17 @@ struct client {
 
 typedef struct client *Client;
 
-//
+// Creates a client struct.
 // pre:
 // post:
 Client createClient(int idNum, char *name, char *email, char *phone);
 
-//
+// Frees allocated memory for the given struct.
 // pre:
 // post:
 void destroy_client(Client clientptr);
 
-//
-//
+// Prints the contents of the given client struct.
 // pre:
 // post:
 void print_client(Client cli);
