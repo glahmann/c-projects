@@ -45,7 +45,7 @@ void print_list(ListType listptr, void (*printItem) (void *d)) {
   int i;
   for(i = 0; i < listptr->size; i++) {
     printItem(listptr->data + i * (listptr->elementSize) );
-    printf("");
+    printf(" ");
   }
   printf("\n");
 }

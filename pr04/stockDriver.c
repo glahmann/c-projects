@@ -83,11 +83,11 @@ void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
     while (fgets(line, 95, fptr) != NULL) { // TODO use alternative to 95
       sscanf(line, "%d ", &idNum);
       fgets(line, 40, fptr);
-      sscanf(line, "%s", name);
+      sscanf(line, "%s\n", name);
       fgets(line, 40, fptr);
-      sscanf(line, "%s", email);
+      sscanf(line, "%s\n", email);
       fgets(line, 15, fptr);
-      sscanf(line, "%s", phone);
+      sscanf(line, "%s\n", phone);
 
       // create a client object
       Client curr = createClient(idNum, name, email, phone);
