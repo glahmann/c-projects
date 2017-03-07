@@ -23,7 +23,7 @@ void destroy_client(Client clientptr);
 // Prints the contents of the given client struct.
 // pre:
 // post:
-void print_client(Client cli);
+void print_client(Client cli, FILE *fptr);
 
 
 #endif

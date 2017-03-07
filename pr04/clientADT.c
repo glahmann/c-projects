@@ -23,6 +23,6 @@ void destroy_client(Client clientptr) {
   clientptr = NULL;
 }
 
-void print_client(Client cli) {
+void print_client(Client cli, FILE *fptr) {
   printf("%d,%s,%s,%s\n", cli->idNum, cli->name, cli->email, cli->phone);
 }

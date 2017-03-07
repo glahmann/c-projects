@@ -18,7 +18,7 @@ int compare(const void *a, const void *b);
 // post: none
 void destroyItem(void *d);
 
-//
+// Prints client data to .csv file.
 // pre: *d points to a valid memory location for a client object
 // post: none
 void printItem(void *d, void *e);
@@ -33,11 +33,6 @@ void readClients(FILE *fptr, ListType clientList);
 // post: none
 void readStocks(FILE *fptr, ListType stockList);
 
-//
-// pre:
-// post:
-void readTXT();
-
 
 int main(void) {
   FILE *fptrClients;
@@ -50,7 +45,7 @@ int main(void) {
   fptrClients = fopen("clients.txt", "r");
   fptrStocks = fopen("stocks.csv", "r");
   // fptrStCl = fopen("stock_client.txt", "r");
-  fptrSummary = fopen("summary.csv", "w");
+  // fptrSummary = fopen("summary.csv", "w");
 
   // Allocate memory for and populate lists
   clientList = create_list(sizeof(struct client), compare);
@@ -74,7 +69,7 @@ int main(void) {
   destroy_list(stockList);
 }
 
-void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
+void readClients(FILE *fptr, ListType clientList) {
   int i = 0, idNum;
   char last[20], name[40], email[40], phone[15], line[95];
   if (fptr == NULL) {
@@ -96,15 +91,12 @@ void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
       Client curr = createClient(idNum, name, email, phone);
       // add client object pointer to list
       push(clientList, curr);
-      // Client *cli = (Client *) get_element(clientList, i);
-      // printf("%d\n", cli->idNum);
       i++;
     }
-    printf("%d\n", size_is(clientList));
   }
 }
 
-void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
+void readStocks(FILE *fptr, ListType stockList) {
   char symbol[6], line[95];   // TODO should be dynamic
   int i = 0;
   double price;
@@ -122,7 +114,6 @@ void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
       push(stockList, &curr);
       i++;
     }
-    printf("%d\n", size_is(stockList));
   }
 }
 
@@ -136,13 +127,14 @@ int compare(const void *a, const void *b) {
 // *e is a list of stocks/prices
 void printItem(void *d, void *e) {
   char line[80], symbol[6];
-  double total;
-  FILE *fptr;
+  double cost = 0.0, total = 0.0;
+  FILE *fptr, *fptrSummary;
   int match = -1, reps, count, i, j;
   int id = ((Client) d)->idNum;
 
-  print_client(((Client) d));
+  fptrSummary = fopen("summary.csv", "w");
   fptr = fopen("stock_client.txt", "r");
+  print_client(((Client) d), fptrSummary);
   while (id != match && fgets(line, 80, fptr) != NULL) {
     sscanf(line, "%d %d", &match, &reps);
     for (i = 0; i < reps; i++) {
@@ -153,22 +145,21 @@ void printItem(void *d, void *e) {
     for (i = 0; i < reps; i++) {
       sscanf(line, "%s %d", symbol, &count);
       printf(",%s,%d", symbol, count);
-      // ((ListType) e)->data
-      printf("\n");
+      for(j = 0; j < ((ListType) e)->size; j++) {
+        if(strcmp(symbol, ((Stock *)(((ListType) e)->data + j * (((ListType) e)->elementSize)))->symbol) == 0) {
+          cost = ((Stock *)(((ListType) e)->data + j * (((ListType) e)->elementSize)))->price;
+        }
+      }
+      total += cost*count;
+      printf(",%.4lf\n", cost);
       fgets(line, 80, fptr);
     }
+    printf("%.4lf\n", total);
   }
 
-
+  fclose(fptrSummary);
   fclose(fptr);
-
-  // printStocks(((Client) d));
 }
-
-// void printStocks(Client cli) {
-//
-//
-// }
 
 void destroyItem(void *d) {
   destroy_client(((Client) d));

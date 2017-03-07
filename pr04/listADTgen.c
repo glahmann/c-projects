@@ -46,7 +46,6 @@ void print_list(ListType listptr, ListType listptr2, void (*printItem) (void *d,
   for(i = 0; i < listptr->size; i++) {
     printItem(listptr->data + i * (listptr->elementSize), listptr2);
   }
-  printf("\n");
 }
 
 int size_is(ListType listptr) {
