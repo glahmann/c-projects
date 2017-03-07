@@ -20,10 +20,10 @@ Client createClient(int idNum, char *name, char *email, char *phone);
 // // post:
 // void destroyClient(Client clientptr);
 //
-// //
-// // pre:
-// // post:
-// int getSizeClient(Client clientptr);
+//
+// pre:
+// post:
+void print_client(Client cli);
 
 
 #endif

@@ -22,3 +22,7 @@ Client createClient(int idNum, char *name, char *email, char *phone) {
 //   free(clientptr->name);
 //   free(clientptr->email);
 // }
+
+void print_client(Client cli) {
+  printf("%d,%s,%s,%s", cli.idNum, cli.name, cli.email, cli.phone);
+}

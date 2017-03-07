@@ -18,7 +18,7 @@ void push(ListType listP, void *item);
 //
 // pre:
 // post:
-void delete(ListType listP, void* item);
+void sort_list(ListType listP);
 //
 // pre:
 // post:
@@ -30,6 +30,6 @@ int get_index(ListType listP, void *el);
 //
 // pre:
 // post:
-void printl(ListType listP, void (*printItem) (void *item));
+void print_list(ListType listP, void (*printItem) (void *item));
 
 #endif

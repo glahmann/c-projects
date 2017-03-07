@@ -8,12 +8,12 @@ struct list_type {
   int size;
   int capacity;
   int elementSize;
-  int (*comparePtr) (void *d1, void *d2);
+  int (*comparePtr) (const void *d1, const void *d2);
 };
 
 
 // returns the pointer to the list; NULL if list not created
-ListType create_list(int elSize, int (*comp) (void *item1, void * item2)) {
+ListType create_list(int elSize, int (*comp) (const void *item1, const void * item2)) {
   // allocate memory for a structure variable containing all
   // list components
   ListType listptr = malloc(sizeof(struct list_type));
@@ -41,7 +41,7 @@ void destroy_list(ListType listptr) {
   listptr = NULL;
 }
 
-void printl(ListType listptr, void (*printItem) (void *d)) {
+void print_list(ListType listptr, void (*printItem) (void *d)) {
   int i;
   for(i = 0; i < listptr->size; i++) {
     printItem(listptr->data + i * (listptr->elementSize) );
@@ -101,10 +101,10 @@ void *get_element(ListType listptr, int index) {
 }
 
 
-int get_index(ListType listP, void *el) {
+int get_index(ListType listptr, void *el) {
   return 1; // TODO implement
 }
 
-void delete(ListType listptr, void *item) {
-
+void sort_list(ListType listptr) {
+  qsort(listptr, listptr->size, listptr->elementSize, listptr->comparePtr);
 }
