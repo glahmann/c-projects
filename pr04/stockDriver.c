@@ -67,7 +67,7 @@ int main(void) {
   fclose(fptrSummary);
 
   // Free lists
-  make_empty(clientList);
+  clear_list(clientList, destroyItem);
   make_empty(stockList);
   destroy_list(clientList);
   destroy_list(stockList);
