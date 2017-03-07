@@ -106,5 +106,5 @@ int get_index(ListType listptr, void *el) {
 }
 
 void sort_list(ListType listptr) {
-  qsort(listptr, listptr->size, listptr->elementSize, listptr->comparePtr);
+  qsort(listptr->data, listptr->size, listptr->elementSize, listptr->comparePtr);
 }
