@@ -4,7 +4,7 @@
 #include <string.h>
 
 // returns the pointer to the list; NULL if list not created
-ListType create_list(int elSize, int (*comp) (void *item1, void *item2)) {
+ListType create_list(int elSize, int (*comp) (const void *item1, const void *item2)) {
   // allocate memory for a structure variable containing all
   // list components
   ListType listptr = malloc(sizeof(struct list_type));

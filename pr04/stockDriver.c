@@ -10,11 +10,11 @@
 //
 // pre:
 // post:
-int compare(void *a, void *b);
+int compare(const void *a, const void *b);
 //
 // pre:
 // post:
-void printItem(Client *cli);
+void printItem(void *d);
 //
 // pre:
 // post:
@@ -120,13 +120,14 @@ void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
   }
 }
 
-int compare(void *a, void *b) {
+int compare(const void *a, const void *b) {
   int c = ((Client *) a)->idNum;
   int d = ((Client *) b)->idNum;
 
   return (c - d);
 }
 
-void printItem(Client *cli) {
+void printItem(void *d) {
+  Client *cli = d;
   print_client(*cli);
 }

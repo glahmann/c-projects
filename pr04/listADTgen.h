@@ -6,12 +6,12 @@ struct list_type {
   int size;
   int capacity;
   int elementSize;
-  int (*comparePtr) (void *d1, void *d2);
+  int (*comparePtr) (const void *d1, const void *d2);
 };
 
 typedef struct list_type *ListType;
 
-ListType createList(int elSize, int (*compare) (void *item1, void *item2));
+ListType createList(int elSize, int (*compare) (const void *item1, const void *item2));
 void destroyList(ListType listP);
 void make_empty(ListType listP);
 int is_empty(ListType listP);
