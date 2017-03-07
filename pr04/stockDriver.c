@@ -58,7 +58,7 @@ int main(void) {
   readClients(fptrClients, clientList);
   readStocks(fptrStocks, stockList);
 
-  //sort_list(clientList);
+  sort_list(clientList);
   print_list(clientList, printItem);
 
   // Close all files
@@ -85,6 +85,7 @@ void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
       sscanf(line, "%d ", &idNum);
       fgets(line, 40, fptr);
       sscanf(line, "%s %s", name, last);
+      strcat(name, " ");
       strcat(name, last);
       fgets(line, 40, fptr);
       sscanf(line, "%s", email);
