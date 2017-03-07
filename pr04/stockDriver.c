@@ -73,20 +73,17 @@ int main(void) {
 }
 
 void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
-  printf("3)ok");
   int i = 0, idNum;
   char name[40], email[40], phone[15], line[95]; // TODO should be dynamic
   if (fptr == NULL) {
     fputs("Client file not found!", stderr);
     exit(-1);
   } else {
-    printf("4)ok");
     while (fgets(line, 95, fptr) != NULL) { // TODO use alternative to 95
       sscanf(line, "%d ", &idNum);
       fgets(name, 40, fptr);
       fgets(email, 40, fptr);
       fgets(phone, 15, fptr);
-      printf("5)ok");
       // create a client object
       Client curr = createClient(idNum, name, email, phone);
       // add client object pointer to list
@@ -107,6 +104,7 @@ void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
     fputs("Stock file not found!", stderr);
     exit(-1);
   } else {
+    fgets(line, 95, fptr); // Skip labels in first line
     while (fgets(line, 95, fptr) != NULL) { // TODO use alternative to 95
       sscanf(line, "%[^,]s%lf", symbol, &price); // TODO store both as strings? Better memory usage.
 

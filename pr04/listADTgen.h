@@ -1,6 +1,14 @@
 #ifndef LISTADT_H
 #define LISTADT_H
 
+struct list_type {
+  void *data;
+  int size;
+  int capacity;
+  int elementSize;
+  int (*comparePtr) (const void *d1, const void *d2);
+};
+
 typedef struct list_type *ListType;
 
 ListType createList(int elSize, int (*compare) (void *item1, void *item2));

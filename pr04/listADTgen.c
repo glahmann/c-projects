@@ -3,15 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 
-struct list_type {
-  void *data;
-  int size;
-  int capacity;
-  int elementSize;
-  int (*comparePtr) (const void *d1, const void *d2);
-};
-
-
 // returns the pointer to the list; NULL if list not created
 ListType create_list(int elSize, int (*comp) (const void *item1, const void * item2)) {
   // allocate memory for a structure variable containing all
