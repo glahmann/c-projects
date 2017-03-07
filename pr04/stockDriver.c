@@ -14,6 +14,10 @@ int compare(const void *a, const void *b);
 //
 // pre:
 // post:
+void destroyItem(void *d);
+//
+// pre:
+// post:
 void printItem(void *d);
 //
 // pre:
@@ -127,4 +131,9 @@ int compare(const void *a, const void *b) {
 void printItem(void *d) {
   Client *cli = d;
   print_client(*cli);
+}
+
+void destroyItem(void *d) {
+  Client *cli = d;
+  destroy_client(*cli);
 }

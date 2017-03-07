@@ -15,10 +15,11 @@ typedef struct client *Client;
 // post:
 Client createClient(int idNum, char *name, char *email, char *phone);
 
-// //
-// // pre:
-// // post:
-// void destroyClient(Client clientptr);
+//
+// pre:
+// post:
+void destroy_client(Client clientptr);
+
 //
 //
 // pre:

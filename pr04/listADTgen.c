@@ -26,6 +26,13 @@ ListType create_list(int elSize, int (*comp) (const void *item1, const void *ite
   return listptr;
 }
 
+void clear_list(ListType listptr, void (*destroyItem) (void *d)) {
+  int i;
+  for(i = 0; i < listptr->size; i++) {
+    destroyItem(listptr->data + i * (listptr->elementSize) );
+  }
+}
+
 void destroy_list(ListType listptr) {
   free(listptr->data);
   free(listptr);

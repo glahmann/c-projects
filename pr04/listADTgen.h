@@ -20,9 +20,9 @@ int size_is(ListType listP);
 void push(ListType listP, void *item);
 
 //
-// pre:
-// post:
-//void clear_list(ListType listptr);
+//pre:
+//post:
+void clear_list(ListType listptr, void (*destroyItem) (void *d));
 //
 // pre:
 // post:
