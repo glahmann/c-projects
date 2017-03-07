@@ -24,5 +24,5 @@ void destroy_client(Client clientptr) {
 }
 
 void print_client(Client cli) {
-  printf("%d,%s,%s,%s", cli->idNum, cli->name, cli->email, cli->phone);
+  printf("%d,%s,%s,%s\n", cli->idNum, cli->name, cli->email, cli->phone);
 }
