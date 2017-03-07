@@ -56,8 +56,8 @@ int main(void) {
   stockList = create_list(sizeof(struct stock), compare);
   readClients(fptrClients, clientList);
   readStocks(fptrStocks, stockList);
-  printf("Okay before sort call");
-  sort_list(clientList);
+ 
+  //sort_list(clientList);
   print_list(clientList, printItem);
 
   // Close all files
@@ -67,7 +67,7 @@ int main(void) {
   fclose(fptrSummary);
 
   // Free lists
-  clear_list(clientList, destroyItem);
+  //clear_list(clientList, destroyItem); // TODO free memory from clients
   make_empty(stockList);
   destroy_list(clientList);
   destroy_list(stockList);
@@ -129,11 +129,9 @@ int compare(const void *a, const void *b) {
 }
 
 void printItem(void *d) {
-  //Client *cli = d;
   print_client(((Client) d));
 }
 
 void destroyItem(void *d) {
-  Client *cli = d;
   destroy_client(((Client) d));
 }

@@ -26,10 +26,12 @@ ListType create_list(int elSize, int (*comp) (const void *item1, const void *ite
   return listptr;
 }
 
+// TODO fix free functionality
 void clear_list(ListType listptr, void (*destroyItem) (void *d)) {
   int i;
   for(i = 0; i < listptr->size; i++) {
-    destroyItem(listptr->data + i * (listptr->elementSize) );
+    free(listptr->data + i * (listptr->elementSize));
+    //destroyItem(listptr->data + i * (listptr->elementSize) );
   }
 }
 
