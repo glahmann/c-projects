@@ -3,6 +3,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "clientADT.h"
 #include "listADTgen.h"
 #include "stockADT.h"
@@ -75,19 +76,20 @@ int main(void) {
 
 void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
   int i = 0, idNum;
-  char name[40], email[40], phone[15], line[95]; // TODO should be dynamic
+  char last[20], name[40], email[40], phone[15], line[95];
   if (fptr == NULL) {
     fputs("Client file not found!", stderr);
     exit(-1);
   } else {
-    while (fgets(line, 95, fptr) != NULL) { // TODO use alternative to 95
+    while (fgets(line, 95, fptr) != NULL) {
       sscanf(line, "%d ", &idNum);
       fgets(line, 40, fptr);
-      sscanf(line, "%s\n", name);
+      sscanf(line, "%s %s", name, last);
+      strcat(name, last);
       fgets(line, 40, fptr);
-      sscanf(line, "%s\n", email);
+      sscanf(line, "%s", email);
       fgets(line, 15, fptr);
-      sscanf(line, "%s\n", phone);
+      sscanf(line, "%s", phone);
 
       // create a client object
       Client curr = createClient(idNum, name, email, phone);
