@@ -154,6 +154,8 @@ void printItem(void *d, void *e) {
       sscanf(line, "%s %d", symbol, &count);
       printf(",%s,%d", symbol, count);
       // ((ListType) e)->data
+      printf("\n");
+      fgets(line, 80, fptr);
     }
   }
 
