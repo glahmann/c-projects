@@ -6,7 +6,7 @@ struct list_type {
   int size;
   int capacity;
   int elementSize;
-  int (*comparePtr) (const void *d1, const void *d2);
+  int (*comparePtr) (void *d1, void *d2);
 };
 
 typedef struct list_type *ListType;

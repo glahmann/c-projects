@@ -10,7 +10,7 @@
 //
 // pre:
 // post:
-int compare(const void *a, const void *b);
+int compare(void *a, void *b);
 //
 // pre:
 // post:
@@ -120,7 +120,7 @@ void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
   }
 }
 
-int compare(const void *a, const void *b) {
+int compare(void *a, void *b) {
   int c = ((Client *) a)->idNum;
   int d = ((Client *) b)->idNum;
 
