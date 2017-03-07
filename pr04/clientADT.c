@@ -8,7 +8,7 @@
 
 Client createClient(int idNum, char *name, char *email, char *phone) {
   // Client *clientptr = malloc(sizeof(struct client));
-  Client clientptr = malloc(sizeof(struct client));
+  Client clientptr = calloc(sizeof(struct client), 1);
   // Populate struct fields
   clientptr->idNum = idNum;
   strcpy(clientptr->name, name);
