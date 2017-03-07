@@ -34,14 +34,14 @@ void sort_list(ListType listP);
 // post:
 void * get_element(ListType listP, int index);
 
-//
-// pre:
-// post:
-int get_index(ListType listP, void *el);
+// //
+// // pre:
+// // post:
+// int get_index(ListType listP, void *el);
 
 //
 // pre:
 // post:
-void print_list(ListType listP, void (*printItem) (void *item));
+void print_list(ListType listptr, ListType listptr2, void (*printItem) (void *d, void *e));
 
 #endif

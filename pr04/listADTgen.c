@@ -41,14 +41,14 @@ void destroy_list(ListType listptr) {
   listptr = NULL;
 }
 
-void print_list(ListType listptr, void (*printItem) (void *d)) {
+void print_list(ListType listptr, ListType listptr2, void (*printItem) (void *d, void *e)) {
   int i;
   for(i = 0; i < listptr->size; i++) {
-    printItem(listptr->data + i * (listptr->elementSize) );
-    printf(" ");
+    printItem(listptr->data + i * (listptr->elementSize), listptr2);
   }
   printf("\n");
 }
+
 int size_is(ListType listptr) {
    return listptr->size;
 }
@@ -101,9 +101,13 @@ void *get_element(ListType listptr, int index) {
 }
 
 
-int get_index(ListType listptr, void *el) {
-  return 1; // TODO implement
-}
+// int get_index(ListType listptr, void *el) {
+//   int i = 0;
+//
+//   while ()
+//
+//   return 1; // TODO implement
+// }
 
 void sort_list(ListType listptr) {
   qsort(listptr->data, listptr->size, listptr->elementSize, listptr->comparePtr);

@@ -21,7 +21,7 @@ void destroyItem(void *d);
 //
 // pre: *d points to a valid memory location for a client object
 // post: none
-void printItem(void *d);
+void printItem(void *d, void *e);
 
 // Reads info from client file and builds a list of client objects.
 // pre:
@@ -42,14 +42,14 @@ void readTXT();
 int main(void) {
   FILE *fptrClients;
   FILE *fptrStocks;
-  FILE *fptrStCl;
+  // FILE *fptrStCl;
   FILE *fptrSummary;
   ListType clientList, stockList;
 
   // Open relevant files for reading and writing
   fptrClients = fopen("clients.txt", "r");
   fptrStocks = fopen("stocks.csv", "r");
-  fptrStCl = fopen("stock_client.txt", "r");
+  // fptrStCl = fopen("stock_client.txt", "r");
   fptrSummary = fopen("summary.csv", "w");
 
   // Allocate memory for and populate lists
@@ -59,12 +59,12 @@ int main(void) {
   readStocks(fptrStocks, stockList);
 
   sort_list(clientList);
-  print_list(clientList, printItem);
+  print_list(clientList, stockList, printItem);
 
   // Close all files
   fclose(fptrClients);
   fclose(fptrStocks);
-  fclose(fptrStCl);
+  // fclose(fptrStCl);
   fclose(fptrSummary);
 
   // Free lists
@@ -120,8 +120,6 @@ void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
       Stock curr = createStock(symbol, price);
       // add stock object pointer to list
       push(stockList, &curr);
-      // Stock *stk = (Stock *) get_element(stockList, i);
-      // printf("%lf\n", stk->price);
       i++;
     }
     printf("%d\n", size_is(stockList));
@@ -135,9 +133,40 @@ int compare(const void *a, const void *b) {
   return (c - d);
 }
 
-void printItem(void *d) {
+// *e is a list of stocks/prices
+void printItem(void *d, void *e) {
+  char line[80], symbol[6];
+  double total;
+  FILE *fptr;
+  int match = -1, reps, count, i, j;
+  int id = ((Client) d)->idNum;
+
   print_client(((Client) d));
+  fptr = fopen("stock_client.txt", "r");
+  while (id != match && fgets(line, 80, fptr) != NULL) {
+    sscanf(line, "%d %d", &match, &reps);
+    for (i = 0; i < reps; i++) {
+      fgets(line, 80, fptr);  // Skip over unneeded lines
+    }
+  }
+  if (id == match) {
+    for (i = 0; i < reps; i++) {
+      sscanf(line, "%s %d", symbol, &count);
+      printf(",%s,%d", symbol, count);
+      // ((ListType) e)->data
+    }
+  }
+
+
+  fclose(fptr);
+
+  // printStocks(((Client) d));
 }
+
+// void printStocks(Client cli) {
+//
+//
+// }
 
 void destroyItem(void *d) {
   destroy_client(((Client) d));
