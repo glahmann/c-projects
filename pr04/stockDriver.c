@@ -91,8 +91,8 @@ void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
       Client curr = createClient(idNum, name, email, phone);
       // add client object pointer to list
       push(clientList, &curr);
-      Client *cli = (Client *) get_element(clientList, i);
-      printf("%d\n", cli->idNum);
+      // Client *cli = (Client *) get_element(clientList, i);
+      // printf("%d\n", cli->idNum);
       i++;
     }
     printf("%d\n", size_is(clientList));
@@ -114,8 +114,8 @@ void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
       Stock curr = createStock(symbol, price);
       // add stock object pointer to list
       push(stockList, &curr);
-      Stock *stk = (Stock *) get_element(stockList, i);
-      printf("%lf\n", stk->price);
+      // Stock *stk = (Stock *) get_element(stockList, i);
+      // printf("%lf\n", stk->price);
       i++;
     }
     printf("%d\n", size_is(stockList));
@@ -129,6 +129,6 @@ int compare(const void *a, const void *b) {
   return (c - d);
 }
 
-void printItem(Client* cli) {
+void printItem(Client *cli) {
   print_client(*cli);
 }
