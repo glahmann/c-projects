@@ -145,12 +145,12 @@ void printItem(void *d, void *e) {
     for (i = 0; i < reps; i++) {
       sscanf(line, "%s %d", symbol, &count);
       printf(",%s,%d", symbol, count);
-      for(j = 0; j < ((ListType) e)->size; j++) {
-        if(strcmp(symbol, ((Stock *)(((ListType) e)->data + j * (((ListType) e)->elementSize)))->symbol) == 0) {
-          cost = ((Stock *)(((ListType) e)->data + j * (((ListType) e)->elementSize)))->price;
-        }
-      }
-      total += cost*count;
+      // for(j = 0; j < ((ListType) e)->size; j++) {
+      //   if(strcmp(symbol, ((Stock *)(((ListType) e)->data + j * (((ListType) e)->elementSize)))->symbol) == 0) {
+      //     cost = ((Stock *)(((ListType) e)->data + j * (((ListType) e)->elementSize)))->price;
+      //   }
+      // }
+      // total += cost*count;
       printf(",%.4lf\n", cost);
       fgets(line, 80, fptr);
     }
