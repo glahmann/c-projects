@@ -52,12 +52,9 @@ int main(void) {
   stockList = create_list(sizeof(struct stock), compare);
   readClients(fptrClients, clientList);
   readStocks(fptrStocks, stockList);
-
+  printf("Okay before sort call");
   sort_list(clientList);
   print_list(clientList, printItem);
-  // for (i=0; i<size_is(clientList); i++) {
-  //
-  // }
 
   // Close all files
   fclose(fptrClients);
@@ -121,8 +118,8 @@ void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
 }
 
 int compare(const void *a, const void *b) {
-  int c = ((Client *) a)->idNum;
-  int d = ((Client *) b)->idNum;
+  int c = ((Client) a).idNum;
+  int d = ((Client) b).idNum;
 
   return (c - d);
 }
