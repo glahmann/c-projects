@@ -8,7 +8,7 @@ struct client {
   char phone[15]; // 12 digits + \0
 };
 
-typedef struct client Client;
+typedef struct client *Client;
 
 //
 // pre:

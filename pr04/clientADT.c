@@ -10,10 +10,10 @@ Client createClient(int idNum, char *name, char *email, char *phone) {
   // Client *clientptr = malloc(sizeof(struct client));
   Client clientptr;
   // Populate struct fields
-  clientptr.idNum = idNum;
-  strcpy(clientptr.name, name);
-  strcpy(clientptr.email, email);
-  strcpy(clientptr.phone, phone);
+  clientptr->idNum = idNum;
+  strcpy(clientptr->name, name);
+  strcpy(clientptr->email, email);
+  strcpy(clientptr->phone, phone);
 
   return clientptr;
 }
@@ -24,5 +24,5 @@ Client createClient(int idNum, char *name, char *email, char *phone) {
 // }
 
 void print_client(Client cli) {
-  printf("%d,%s,%s,%s", cli.idNum, cli.name, cli.email, cli.phone);
+  printf("%d,%s,%s,%s", cli->idNum, cli->name, cli->email, cli->phone);
 }

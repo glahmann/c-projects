@@ -84,7 +84,7 @@ void readClients(FILE *fptr,/*Pass by reference*/ ListType clientList) {
       // create a client object
       Client curr = createClient(idNum, name, email, phone);
       // add client object pointer to list
-      push(clientList, &curr);
+      push(clientList, curr);
       // Client *cli = (Client *) get_element(clientList, i);
       // printf("%d\n", cli->idNum);
       i++;
@@ -118,8 +118,8 @@ void readStocks(FILE *fptr,/*Pass by reference*/ ListType stockList) {
 }
 
 int compare(const void *a, const void *b) {
-  int c = ((Client) a).idNum;
-  int d = ((Client) b).idNum;
+  int c = ((Client) a)->idNum;
+  int d = ((Client) b)->idNum;
 
   return (c - d);
 }
