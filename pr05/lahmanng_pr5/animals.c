@@ -1,7 +1,8 @@
 /**
  * animals.c
+ * Author: Garrett Lahmann
  *
- * Contains functions that operate on an animals binary file.
+ * Contains functions that operate on an binary file containing animal records.
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,13 +12,14 @@ void print_file(FILE *fptr) {
   char curr;
   int line = 1; // Length of the current print line
 
-  printf("\n"); // TODO relocate
-  while (!feof(fptr)) { // TODO don't use feof!
-    curr = fgetc(fptr);
+  printf("\n");
+  while (fscanf(fptr, "%c", &curr) == 1) { // Loop until end of file
     if (line > 80) {
       printf("\n");
       line = 1;
     }
+
+    // Print standard ASCII characters
     if(((int) curr) >= 32 && ((int) curr) <= 127) {
       printf("%c", curr);
       line++;
@@ -44,6 +46,7 @@ void replace(FILE *fptr, int skip, char newChar) {
 void display_by_num(FILE *fptr, int recordNum) {
   Animal *record = malloc(sizeof(Animal));
 
+  // Print record at given location
   fseek(fptr, (recordNum - 1) * sizeof(Animal), 0);
   if (recordNum > 0 && fread(record, sizeof(Animal), 1, fptr) == 1) {
     printf("\n%d,%s,%s,%c,%d\n", record->id, record->name,
@@ -57,31 +60,19 @@ void display_by_num(FILE *fptr, int recordNum) {
   rewind(fptr);
 }
 
-void display_by_id(FILE *fptr, int idNum) {
+void display_by_id(FILE *fptr, int idNum, int len) {
+  int idx;
   Animal *record = malloc(sizeof(Animal));
-  int left, mid, right, flag = 0;
 
-  fseek(fptr, 0, SEEK_END);  // SEEK_END not portable
-  left = 0;
-  right = (ftell(fptr) / sizeof(Animal)) - 1; // Get index of last record
-  while (!flag) {
-    if (left > right) {
-      printf("\nRecord not found!\n");
-      flag = 1;
-    } else {
-      mid = (left + right) / 2;
-      fseek(fptr, mid * sizeof(Animal), 0);
-      fread(record, sizeof(Animal), 1, fptr);
-      if (record->id == idNum) {
-        printf("\n%d,%s,%s,%c,%d\n", record->id, record->name,
-                record->species, record->size, record->age);
-        flag = 1;
-      } else if (record->id < idNum) {
-        left = mid + 1;
-      } else { // record ID greater than given ID
-        right = mid - 1;
-      }
-    }
+  idx = find_idx(fptr, idNum, len);
+  if (idx == -1) {
+    printf("\nRecord not found!\n");
+  } else {
+    // Print record corresponding to the ID given
+    fseek(fptr, idx * sizeof(Animal), 0);
+    fread(record, sizeof(Animal), 1, fptr);
+    printf("\n%d,%s,%s,%c,%d\n", record->id, record->name,
+              record->species, record->size, record->age);
   }
 
   printf("\n");
@@ -89,14 +80,12 @@ void display_by_id(FILE *fptr, int idNum) {
   rewind(fptr);
 }
 
-void swap(FILE *fptr, int recA, int recB) {
-  int max, temp;
+void swap(FILE *fptr, int recA, int recB, int len) {
+  int temp;
   Animal *recordA = malloc(sizeof(Animal));
   Animal *recordB = malloc(sizeof(Animal));
 
-  fseek(fptr, 0, SEEK_END);
-  max = (ftell(fptr) / sizeof(Animal));
-  if (recA < 1 || recB < 1 || recA > max || recB > max) {
+  if (recA < 1 || recB < 1 || recA > len || recB > len) {
     printf("\nInvalid record selection!\n");
   } else {
     // Get struct for first animal
@@ -125,14 +114,12 @@ void swap(FILE *fptr, int recA, int recB) {
   rewind(fptr);
 }
 
-void write_to_file(FILE *inptr, FILE *outptr) {
-  int i, max;
+void write_to_file(FILE *inptr, FILE *outptr, int len) {
+  int i;
   Animal *record = malloc(sizeof(Animal));
 
-  fseek(inptr, 0, SEEK_END);
-  max = ftell(inptr) / sizeof(Animal);
-
-  for (i = 0; i < max; i++) {
+  // Loop over and print every record to a file
+  for (i = 0; i < len; i++) {
     fseek(inptr, i * sizeof(Animal), 0);
     fread(record, sizeof(Animal), 1, inptr);
     fprintf(outptr, "%d,%s,%s,%c,%d\n", record->id, record->name,
@@ -140,4 +127,92 @@ void write_to_file(FILE *inptr, FILE *outptr) {
   }
 
   free(record);
+}
+
+void add_record(FILE *fptr, int len) {
+  int flag = 0, i, idNum, idx = 0;
+  Animal *record = malloc(sizeof(Animal));
+  Animal *current= malloc(sizeof(Animal));
+
+  // Populate an animal record struct
+  record->id = get_id(fptr, len);
+  printf("Enter name: ");
+  scanf(" %s", record->name);
+  printf("Enter species: ");
+  scanf(" %[^\n]s", record->species);
+  printf("Enter size: ");
+  scanf(" %c", &record->size);
+  printf("Enter age: ");
+  scanf(" %hd", &record->age);
+
+  // Find insertion index
+  fseek(fptr, idx * sizeof(Animal), 0);
+  while (!flag && fread(current, sizeof(Animal), 1, fptr) == 1) {
+    if (record->id < current->id) {
+      flag = 1;
+    } else {
+      idx++;
+      fseek(fptr, idx * sizeof(Animal), 0);
+    }
+  }
+
+  // Shift old entries to the right
+  for (i = len; i >= idx; i--) {
+    fseek(fptr, (i - 1) * sizeof(Animal), 0);
+    fread(current, sizeof(Animal), 1, fptr);
+    fseek(fptr, i * sizeof(Animal), 0);
+    fwrite(current, sizeof(Animal), 1, fptr);
+  }
+
+  // Insert new struct
+  fseek(fptr, idx * sizeof(Animal), 0);
+  fwrite(record, sizeof(Animal), 1, fptr);
+
+  printf("\n");
+  free(current);
+  free(record);
+  rewind(fptr);
+}
+
+short int get_id(FILE *fptr, int len) {
+  int flag = 0;
+  short int idNum;
+
+  printf("Enter animal ID: ");
+  scanf(" %hd", &idNum);
+  flag = find_idx(fptr, idNum, len);
+
+  // Search list until selected idNum not found
+  while (flag != -1) {
+    printf("ID taken, try again: ");
+    scanf(" %hd", &idNum);
+    flag = find_idx(fptr, idNum, len);
+  }
+  return idNum;
+}
+
+int find_idx(FILE *fptr, int idNum, int len) {
+  Animal *record = malloc(sizeof(Animal));
+  int idx, left, mid, right, flag = -2;
+
+  left = 0;
+  right = len - 1; // Get index of last record
+  while (flag < -1) {
+    if (left > right) {
+      flag = -1;
+    } else {
+      mid = (left + right) / 2;
+      fseek(fptr, mid * sizeof(Animal), 0); // Set to mid index
+      fread(record, sizeof(Animal), 1, fptr);
+      if (record->id == idNum) {
+        flag = mid;
+      } else if (record->id < idNum) {
+        left = mid + 1;
+      } else { // record ID greater than given ID
+        right = mid - 1;
+      }
+    }
+  }
+  free(record);
+  return flag;
 }
