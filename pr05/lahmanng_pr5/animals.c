@@ -131,7 +131,7 @@ void write_to_file(FILE *inptr, FILE *outptr, int len) {
 
 void add_record(FILE *fptr, int len) {
   int flag = 0, i, idNum, idx = 0;
-  Animal *record = malloc(sizeof(Animal));
+  Animal *record = calloc(1, sizeof(Animal));
   Animal *current= malloc(sizeof(Animal));
 
   // Populate an animal record struct
