@@ -39,4 +39,9 @@ void display_by_id(FILE *fptr, int idNum);
 // Displays the selected animal record.
 // pre:
 // post:
-void swap(FILE *fptr, int recOne, int recTwo);
+void swap(FILE *fptr, int recA, int recB);
+
+// Writes struct contents of binary file to a .csv file
+// pre:
+// post:
+void write_to_file(FILE *inptr, FILE *outptr);

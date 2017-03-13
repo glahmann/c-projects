@@ -11,20 +11,20 @@
 int main(void) {
   char newChar;
   int choice = -1, recOne = -1, recTwo = -1, skip;
+  FILE *binFile, *outFile;
 
-
-  FILE *binFile = fopen("animals.dat", "rb+");
-
+  binFile = fopen("animals.dat", "rb+");
   printf("Welcome to Binary Animals!\n"); // Working title
 
   while (choice != 0) {
     // TODO handle invalid input: >5, <0
-    printf("Enter 1 to print contents of the binary file: \n");
-    printf("Enter 2 to replace chars in the binary file: \n");
-    printf("Enter 3 to display an animal record by number: \n");
-    printf("Enter 4 to display an animal record by ID: \n");
-    printf("Enter 5 to swap two animal records: \n");
-    printf("Enter 0 to quit: \n");
+    printf("Select one of the choices below: \n");
+    printf("1 : print contents of the binary file \n");
+    printf("2 : replace chars in the binary file \n");
+    printf("3 : display an animal record by number \n");
+    printf("4 : display an animal record by ID \n");
+    printf("5 : swap two animal records \n");
+    printf("0 : quit \n");
     scanf(" %d", &choice);
 
     if (choice == 1) {
@@ -46,16 +46,14 @@ int main(void) {
       scanf(" %d %d", &recOne, &recTwo);
       swap(binFile, recOne, recTwo);
     }
-
-
-
   }
 
   // Open .csv file to print output
-
+  outFile = fopen("animalsTest.csv", "w");
   // Write to .csv file
+  write_to_file(binFile, outFile);
 
   fclose(binFile);
-  //fclose();
+  fclose(outFile);
 
 }
